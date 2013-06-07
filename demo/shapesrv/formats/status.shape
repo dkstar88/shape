@@ -1,0 +1,21 @@
+[format]
+user_id=stringgame_id=uint32
+action_id=uint16
+version=string
+
+[----]
+CLIENT GAME STATUS REPORT
+game_id - see games
+action_id 		Description
+==============================
+10				START DOWNLOAD
+11				PAUSE
+12				RESUME
+13				COMPLETE DOWNLOAD
+14				DELETE DOWNLOAD
+15				INSTALL GAME
+16				INSTALL FAIL
+17				INSTALL SUCCESSFUL
+20				GAME DETECTED
+21				GAME RUN
+22				GAME EXIT 

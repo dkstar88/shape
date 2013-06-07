@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <Runnable Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <UseAppBundle Value="False"/>
+      <UseXPManifest Value="True"/>
+      <ActiveEditorIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <Units Count="12">
+      <Unit0>
+        <Filename Value="shapemsg.dpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="25" Y="24"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="shapeTypes.pas"/>
+        <UnitName Value="shapeTypes"/>
+        <CursorPos X="32" Y="5"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="7"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\rtl\inc\systemh.inc"/>
+        <CursorPos X="3" Y="234"/>
+        <TopLine Value="214"/>
+        <EditorIndex Value="10"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="shapeElement.pas"/>
+        <UnitName Value="shapeElement"/>
+        <CursorPos X="67" Y="261"/>
+        <TopLine Value="230"/>
+        <EditorIndex Value="8"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="shapeIntf.pas"/>
+        <UnitName Value="shapeIntf"/>
+        <CursorPos X="27" Y="43"/>
+        <TopLine Value="22"/>
+        <EditorIndex Value="9"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="shapeCodec.pas"/>
+        <UnitName Value="shapeCodec"/>
+        <CursorPos X="40" Y="5"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="shapeEncodings.pas"/>
+        <UnitName Value="shapeEncodings"/>
+        <CursorPos X="62" Y="18"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="6"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <SyntaxHighlighter Value="Delphi"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\packages\amunits\src\otherlibs\zlib.pas"/>
+        <UnitName Value="zlib"/>
+        <CursorPos X="24" Y="29"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\rtl\win64\classes.pp"/>
+        <UnitName Value="Classes"/>
+        <CursorPos X="7" Y="27"/>
+        <TopLine Value="16"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\rtl\inc\variants.pp"/>
+        <UnitName Value="variants"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="16"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\packages\fcl-base\src\contnrs.pp"/>
+        <UnitName Value="contnrs"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="7"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit11>
+    </Units>
+    <JumpHistory Count="28" HistoryIndex="27">
+      <Position1>
+        <Filename Value="shapeTypes.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="shapeTypes.pas"/>
+        <Caret Line="439" Column="12" TopLine="421"/>
+      </Position2>
+      <Position3>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="8" Column="46" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="113" Column="24" TopLine="96"/>
+      </Position5>
+      <Position6>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="96" Column="25" TopLine="79"/>
+      </Position6>
+      <Position7>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="14" Column="9" TopLine="1"/>
+      </Position7>
+      <Position8>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="96" Column="25" TopLine="79"/>
+      </Position8>
+      <Position9>
+        <Filename Value="shapeElement.pas"/>
+        <Caret Line="40" Column="44" TopLine="28"/>
+      </Position9>
+      <Position10>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="7" Column="8" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="21" Column="9" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="21" Column="9" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="55" Column="34" TopLine="34"/>
+      </Position14>
+      <Position15>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="6" Column="12" TopLine="1"/>
+      </Position16>
+      <Position17>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="20" Column="32" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="18" Column="36" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="shapeEncodings.pas"/>
+        <Caret Line="15" Column="62" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="344" Column="24" TopLine="326"/>
+      </Position21>
+      <Position22>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="16" Column="51" TopLine="1"/>
+      </Position22>
+      <Position23>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="17" Column="10" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="24" Column="1" TopLine="1"/>
+      </Position24>
+      <Position25>
+        <Filename Value="shapeTypes.pas"/>
+        <Caret Line="441" Column="21" TopLine="421"/>
+      </Position25>
+      <Position26>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="24" Column="1" TopLine="1"/>
+      </Position26>
+      <Position27>
+        <Filename Value="shapeTypes.pas"/>
+        <Caret Line="413" Column="10" TopLine="395"/>
+      </Position27>
+      <Position28>
+        <Filename Value="shapemsg.dpr"/>
+        <Caret Line="6" Column="7" TopLine="1"/>
+      </Position28>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)\"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+      <TargetOS Value="Win64"/>
+      <Optimizations>
+        <OptimizationLevel Value="3"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <StripSymbols Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
+    </Linking>
+    <Other>
+      <Verbosity>
+        <ShowHints Value="False"/>
+      </Verbosity>
+      <CustomOptions Value=" -Xm"/>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

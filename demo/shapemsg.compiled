@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Compiler Value="C:\lazarus\fpc\2.2.4\bin\x86_64-win64\fpc.exe" Date="995782444"/>
+  <Params Value=" -MDelphi -Scgi -CX -O3 -TWin64 -gl -Xs -XX -vewni -l -FiE:\Delphi\2007\UDP\Shape\ -FuE:\Delphi\2007\UDP\Shape\ -Fu. -FEE:\Delphi\2007\UDP\Shape\ -oshapemsg.dll -Xm shapemsg.dpr"/>
+</CONFIG>

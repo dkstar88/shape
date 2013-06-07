@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <Icon Value="0"/>
+      <UseXPManifest Value="True"/>
+      <ActiveEditorIndexAtStart Value="1"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+      <Language Value=""/>
+      <CharSet Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <Units Count="6">
+      <Unit0>
+        <Filename Value="shapdemo"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="shapdemo"/>
+        <CursorPos X="22" Y="9"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="shapeCodec.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="shapeCodec"/>
+        <CursorPos X="10" Y="153"/>
+        <TopLine Value="139"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\packages\fcl-base\src\inifiles.pp"/>
+        <UnitName Value="IniFiles"/>
+        <CursorPos X="25" Y="179"/>
+        <TopLine Value="166"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\inc\objpash.inc"/>
+        <CursorPos X="23" Y="151"/>
+        <TopLine Value="137"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <CursorPos X="26" Y="693"/>
+        <TopLine Value="679"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\sysstrh.inc"/>
+        <CursorPos X="10" Y="70"/>
+        <TopLine Value="74"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+    </Units>
+    <JumpHistory Count="11" HistoryIndex="10">
+      <Position1>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="60" Column="10" TopLine="37"/>
+      </Position1>
+      <Position2>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="49" Column="18" TopLine="38"/>
+      </Position2>
+      <Position3>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="55" Column="29" TopLine="52"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <Caret Line="679" Column="11" TopLine="665"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <Caret Line="688" Column="24" TopLine="665"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\..\lazarus\fpc\2.2.4\source\rtl\win\sysutils.pp"/>
+        <Caret Line="689" Column="23" TopLine="665"/>
+      </Position7>
+      <Position8>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="219" Column="14" TopLine="195"/>
+      </Position8>
+      <Position9>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="80" Column="71" TopLine="69"/>
+      </Position9>
+      <Position10>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="94" Column="32" TopLine="85"/>
+      </Position10>
+      <Position11>
+        <Filename Value="shapeCodec.pas"/>
+        <Caret Line="39" Column="7" TopLine="25"/>
+      </Position11>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)\"/>
+    </SearchPaths>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

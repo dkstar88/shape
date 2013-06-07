@@ -1,0 +1,430 @@
+unit shapeCodec;
+
+interface
+
+uses SysUtils, Classes, Variants, Contnrs, shapeConsts,
+  shapeTypes, shapeElement, shapeIntf;
+
+type
+  EShapeMessageException = Exception;
+
+  { TShapeMessage }
+  TShapeMessageEncoding = (smeCompressed, smeEncrypted);
+  TShapeMessageEncodings = set of TShapeMessageEncoding;
+
+  TShapeMessage = class(TInterfacedObject, IShapeMessage)
+  private
+    fElements: TInterfaceList;
+    FEncoding: Byte;
+
+    function GetElements(AIndex: Integer): IShapeElement; stdcall;
+    procedure SetElements(AIndex: Integer; const AValue: IShapeElement); stdcall;
+    function getCount: Integer; stdcall;
+    function GetValues(AName: String): Variant; stdcall;
+    procedure SetValues(AName: String; const Value: Variant); stdcall;
+    procedure SetEncoding(const Value: Byte); stdcall;
+    function GetElementByName(AName: String): IShapeElement; stdcall;
+    procedure SetElementByName(AName: String; const Value: IShapeElement);  stdcall;
+    function GetEncoding: Byte; stdcall;
+  protected
+
+  public
+    constructor Create; virtual;
+    constructor CreateFromSpec(AFilename: String);
+    destructor Destroy; override;
+
+
+    procedure LoadSpecFromFile(AFilename: String); stdcall;
+    procedure SaveSpecToFile(AFilename: String); stdcall;
+
+    function ReadFromStream(AStream: TStream): Boolean; stdcall;
+    function WriteToStream(AStream: TStream): Boolean; stdcall;
+
+    procedure LoadFromFile(AFilename: String); stdcall;
+    procedure SaveToFile(AFilename: String); stdcall;
+
+    function CalcSize: Integer;  stdcall;
+
+    function Add(const AName: String;
+      const AValueType: TShapeElementType = SHAPE_STRING): IShapeElement; stdcall;
+
+    procedure Remove(AElement: IShapeElement); stdcall;
+    procedure Delete(AIndex: Integer); stdcall;
+    
+    property Count: Integer read getCount;
+    property Elements[AIndex: Integer]:IShapeElement read GetElements write SetElements;
+    property ElementByName[AName: String]:IShapeElement read GetElementByName write SetElementByName;
+    property Values[AName: String]: Variant read GetValues write SetValues;default;
+    property Encoding: Byte read GetEncoding write SetEncoding;
+  end;
+
+
+implementation
+
+uses IniFiles, shapeEncodings;
+
+function EncodingToByte(AEncodings:TShapeMessageEncodings): Byte;
+begin
+  Result := 0;
+  if smeCompressed in AEncodings then
+    Result := Result and 1;
+
+  if smeEncrypted in AEncodings then
+    Result := Result and 2;
+
+end;
+
+function ByteToEncoding(AEncodings: Byte): TShapeMessageEncodings;
+begin
+  Result := [];
+  if (AEncodings and $01) = $01 then Result := Result + [smeCompressed];
+  if (AEncodings and $02) = $02 then Result := Result + [smeEncrypted];  
+end;
+
+{ TShapeDescriptor }
+
+function TShapeMessage.CalcSize: Integer;
+var
+  i: Integer;
+begin
+  Result := 0;
+  for I := 0 to Count - 1 do
+  begin
+    // Special elements Empty, Boolean takes 1 byte
+    if Elements[i].ElementType in [$00, $01, $FF] then
+      Inc(Result)
+    else // Other types are calculated, with size of element type added 
+      Inc(Result, Elements[i].Length+ELEMENT_TYPE_SIZE);
+  end;
+end;
+
+constructor TShapeMessage.Create;
+begin
+  inherited Create;
+  fElements := TInterfaceList.Create;
+//  fElements.OwnsObjects := True;
+end;
+
+constructor TShapeMessage.CreateFromSpec(AFilename: String);
+begin
+  Create;
+  LoadFromFile(AFilename);
+end;
+
+function TShapeMessage.Add(const AName: String;
+  const AValueType: TShapeElementType): IShapeElement;
+begin
+  Result := TShapeElement.Create(AName, AValueType);
+  fElements.Add(Result);
+end;
+
+procedure TShapeMessage.Delete(AIndex: Integer);
+begin
+  fElements.Delete(AIndex);
+end;
+
+destructor TShapeMessage.Destroy;
+begin
+  fElements.Free;
+  inherited;
+end;
+
+function TShapeMessage.getCount: Integer;
+begin
+  Result := fElements.Count;
+end;
+
+function TShapeMessage.GetElementByName(AName: String): IShapeElement;
+var
+  i: Integer;
+begin
+  Result := nil;
+  for I := 0 to Count - 1 do
+  begin
+    if CompareStr(Elements[i].Name, AName)=0 then
+    begin
+      Result := Elements[i];
+      Break;
+    end;
+  end;
+  if Result = nil then
+  begin
+    raise EShapeMessageException.Create(AName + ' element not found.');
+  end;
+end;
+
+function TShapeMessage.GetElements(AIndex: Integer): IShapeElement;
+begin
+  Result := IShapeElement(fElements[AIndex]);
+end;
+
+function TShapeMessage.GetEncoding: Byte;
+begin
+  Result := FEncoding;
+end;
+
+function TShapeMessage.GetValues(AName: String): Variant;
+var
+  ele: IShapeElement;
+begin
+  ele := ElementByName[AName];
+  Result := ele.Data;
+end;
+
+procedure TShapeMessage.SetElementByName(AName: String;
+  const Value: IShapeElement);
+begin
+  ElementByName[AName].Assign(Value);
+end;
+
+procedure TShapeMessage.SetElements(AIndex: Integer;
+  const AValue: IShapeElement);
+begin
+  Elements[Aindex].Assign(AValue);
+end;
+
+procedure TShapeMessage.SetEncoding(const Value: Byte);
+begin
+  FEncoding := Value;
+end;
+
+procedure TShapeMessage.SetValues(AName: String; const Value: Variant);
+begin
+  ElementByName[AName].Data := Value;
+end;
+
+
+type
+  TShapeStreamProcess = procedure(inpStream, outStream: TStream; const ASize: Cardinal = 0);
+
+function _StreamProcess(Processor: TShapeStreamProcess; AStream: TMemoryStream): Integer;
+var
+  tmp2: TMemoryStream;
+begin
+  Result := 0;
+  tmp2 := TMemoryStream.Create;
+  try
+    AStream.Seek(0, 0);
+    Processor(AStream, tmp2);
+    tmp2.Seek(0, 0);
+    AStream.Clear;
+    AStream.LoadFromStream(tmp2);
+    Result := AStream.Size;
+  finally
+    tmp2.Free;
+  end;
+end;
+
+function TShapeMessage.WriteToStream(AStream: TStream): Boolean;
+var
+  i: Integer;
+  msgsize: Word;
+  option: Byte;
+  eletype, emptyelement, booltrue, boolfalse: Byte;
+  tmpStream, tmp2: TMemoryStream;
+begin
+  booltrue := SHAPE_BOOL_TRUE; boolfalse := SHAPE_BOOL_FALSE;
+  emptyelement := SHAPE_EMPTY;
+  tmpStream := TMemoryStream.Create;
+  tmp2 := TMemoryStream.Create;
+  Result := False;
+  try
+    // Write all elements
+    for I := 0 to Count - 1 do
+    begin
+      // Handle empty elements
+      if Elements[i].IsEmpty then
+      begin
+        tmpStream.Write(emptyelement, ELEMENT_TYPE_SIZE);
+      end
+      else
+      begin
+        // Handle special boolean, takes 1 byte
+        if Elements[i].ElementType in [$00, $01] then
+        begin
+          if Boolean(Elements[i].Data) then
+            tmpStream.Write(booltrue, ELEMENT_TYPE_SIZE)
+          else
+            tmpStream.Write(boolfalse, ELEMENT_TYPE_SIZE);
+        end
+        else
+        begin
+          // Normal element types
+          eletype := Elements[i].ElementType;
+          tmpStream.Write(eletype, ELEMENT_TYPE_SIZE);
+          Elements[i].Write(tmpStream);
+        end;
+      end;
+    end;
+
+    if (FEncoding and SHAPE_ENCODING_COMPRESSED) = SHAPE_ENCODING_COMPRESSED then
+    begin
+      _StreamProcess(@CompressStream, tmpStream);
+    end;
+
+    tmpStream.Seek(0, 0);
+    if (FEncoding and SHAPE_ENCODING_ENCRYPTED) = SHAPE_ENCODING_ENCRYPTED then
+    begin
+      _StreamProcess(@EncryptStream, tmpStream);
+    end;
+
+    // Calculate message size
+    msgsize := tmpStream.Size;
+    // Write message size
+    AStream.Write(msgsize, SizeOf(msgSize));
+
+    // Write encoding options
+    option := fEncoding;
+    AStream.Write(option, SizeOf(option));
+
+    tmpStream.Seek(0, 0);
+    AStream.Write(tmpStream.Memory^, msgsize);
+
+    Result := True;
+  finally
+    tmpStream.Free;
+    tmp2.Free;
+  end;
+
+end;
+
+procedure TShapeMessage.LoadFromFile(AFilename: String);
+var
+  fs: TFileStream;
+begin
+  fs := TFileStream.Create(AFilename, fmOpenRead);
+  try
+    ReadFromStream(fs);
+  finally
+    fs.Free;
+  end;
+end;
+
+procedure TShapeMessage.LoadSpecFromFile(AFilename: String);
+var
+  fIni: TIniFile;
+  fNames: TStrings;
+  i:Integer;
+  fSection: String;
+begin
+  fIni := TIniFile.Create(AFilename);
+  fNames := TStringList.Create;
+  try
+    fSection := '';
+    fIni.ReadSection(fSection, fNames);
+    for i := 0 to fNames.Count-1 do
+    begin
+      Add(fNames[i],
+        TShapeElementUtil.StringToElementType(
+          fIni.ReadString(fSection, fNames[i], 'string'))
+      );
+    end;
+  finally
+    fNames.Free;
+    fIni.Free;
+  end;
+end;
+
+function TShapeMessage.ReadFromStream(AStream: TStream): Boolean;
+var
+  i: Integer;
+  msgsize: Word;
+  elementtype: TShapeElementType;
+  option: Byte;
+  tmpStream, tmp2: TMemoryStream;
+begin
+  tmpStream := TMemoryStream.Create;
+  tmp2 := TMemoryStream.Create;
+  Result := False;
+  try
+    // Write all elements
+    AStream.Read(msgsize, sizeof(msgsize));
+    AStream.Read(option, SizeOf(Option));
+    tmpStream.SetSize(msgSize);
+    AStream.Read(tmpStream.Memory^, msgsize);
+
+    FEncoding := option;
+
+    if (FEncoding and SHAPE_ENCODING_COMPRESSED) = SHAPE_ENCODING_COMPRESSED then
+    begin
+      _StreamProcess(@DecompressStream, tmpStream);
+    end;
+
+    tmpStream.Seek(0, 0);
+    if (FEncoding and SHAPE_ENCODING_ENCRYPTED) = SHAPE_ENCODING_ENCRYPTED then
+    begin
+      _StreamProcess(@DecryptStream, tmpStream);
+    end;
+
+    for I := 0 to Count - 1 do
+    begin
+
+      tmpStream.Read(elementtype, SizeOf(elementtype));
+      // Check if element is empty
+      if elementtype=SHAPE_EMPTY then
+        Elements[i].IsEmpty := True
+      else if elementtype=SHAPE_BOOL_TRUE then
+      begin
+        Elements[i].Data := True;
+      end else if elementtype=SHAPE_BOOL_FALSE then
+      begin
+        Elements[i].Data := False;
+      end else if Elements[i].ElementType = elementtype then
+      begin
+        Elements[i].Read(tmpStream);
+      end else
+      begin
+        // Element type mismatch
+        raise EShapeMessageException.Create('Element ' + Elements[i].Name + ' type mismatch');
+      end;
+
+    end;
+    Result := True;
+  finally
+    tmpStream.Free;
+    tmp2.Free;
+  end;
+
+end;
+
+
+procedure TShapeMessage.Remove(AElement: IShapeElement);
+begin
+  fElements.Remove(AElement)
+end;
+
+procedure TShapeMessage.SaveSpecToFile(AFilename: String);
+var
+  fIni: TIniFile;
+  i:Integer;
+  fSection: String;
+begin
+  fIni := TIniFile.Create(AFilename);
+  try
+    fSection := '';
+//    fIni.ReadSection(fSection, fNames);
+    for i := 0 to Count-1 do
+    begin
+      fIni.WriteString(fSection, Elements[i].Name,
+        TShapeElementUtil.ElementTypeToString(Elements[i].ElementType));
+    end;
+  finally
+    fIni.Free;
+  end;
+end;
+
+
+
+procedure TShapeMessage.SaveToFile(AFilename: String);
+var
+  fs: TFileStream;
+begin
+  fs := TFileStream.Create(AFilename, fmCreate);
+  try
+    WriteToStream(fs);
+  finally
+    fs.Free;
+  end;
+end;
+
+end.

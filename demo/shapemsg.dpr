@@ -1,0 +1,24 @@
+library shapemsg;
+
+
+uses
+  shapeCodec in 'shapeCodec.pas',
+  shapeConsts in 'shapeConsts.pas',
+  shapeElement in 'shapeElement.pas',
+  shapeEncodings in 'shapeEncodings.pas',
+  shapeIntf in 'shapeIntf.pas',
+  shapeTypes in 'shapeTypes.pas';
+
+
+function NewMessage: IShapeMessage; stdcall;
+begin
+  Result := TShapeMessage.Create;
+end;
+
+
+exports NewMessage;
+
+{$IFDEF WINDOWS}{$R shapemsg.rc}{$ENDIF}
+
+begin
+end.
